@@ -1,4 +1,5 @@
 # Ohjelmistotekniikka, harjoitustyö
 
 **Ohjelmistotekniikan harjoitustyön palautuskansio.**
-*Ajatuksena tehdä jonkinsortin joulukalenteri*
+
+Ajatuksena tehdä *jonkinsortin* joulukalenteri
