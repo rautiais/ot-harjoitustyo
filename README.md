@@ -9,6 +9,6 @@ The _volleyball statistics tracking application_ is used for tracking various **
 
 - [Requirements Specification](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/vaatimusmaarittely.md)
 - [Time sheets](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/tuntikirjanpito.md)
-- [Change log](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/changelog.md)
+- [Changelog](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/changelog.md)
 
 ## Installation
