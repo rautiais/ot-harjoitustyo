@@ -12,3 +12,18 @@ The _volleyball statistics tracking application_ is used for tracking various **
 - [Changelog](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/changelog.md)
 
 ## Installation
+
+### Startup instructions
+
+1. Install the dependencies with the command:
+```
+poetry install
+```
+2. Perform the required initialization operations with the command:
+```
+poetry run invoke build
+```
+3. Start the application with the command:
+```
+poetry run invoke start
+```
