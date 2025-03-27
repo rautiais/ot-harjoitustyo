@@ -1,6 +1,7 @@
 ## HSL, sekvenssikaavio
 
 ```mermaid
+sequenceDiagram
     main->>HKLLaitehallinto: laitehallinto 
     main->>rautatietori: Lataajalaite() 
     main->>ratikka6: Lukijalaite() 
