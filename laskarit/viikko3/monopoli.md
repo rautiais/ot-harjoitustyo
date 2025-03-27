@@ -1,4 +1,4 @@
-## Monopoli, alustava luokkakaavio
+## Monopoli, luokkakaavio
 
 ```mermaid
  classDiagram
