@@ -3,25 +3,25 @@ from services.user_service import UserService
 
 class RegisterView:
     def __init__(self, root, handle_login_view):
-        self.root = root
-        self.handle_login_view = handle_login_view
-        self.user_service = UserService()
-        self.frame = None
-        self.username_entry = None
-        self.password_entry = None
+        self._root = root
+        self._handle_login_view = handle_login_view
+        self._user_service = UserService()
+        self._frame = None
+        self._username_entry = None
+        self._password_entry = None
     
     def pack(self):
-        self.frame(fill=constants.X)
+        self._frame.pack(fill=constants.X)
 
     def destroy(self):
-        self.frame.destroy()
+        self._frame.destroy()
 
     def register_handler(self):
-        username = self.username_entry.get()
-        password = self.password_entry.get()
+        username = self._username_entry.get()
+        password = self._password_entry.get()
 
-        if self.user_service.create_user(username, password):
-            self.handle_login_view()
+        if self._user_service.create_user(username, password):
+            self._handle_login_view()
         else:
             pass
 
