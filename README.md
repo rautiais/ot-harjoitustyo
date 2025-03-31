@@ -1,6 +1,3 @@
-# Ohjelmistotekniikka
-[Laskarit](https://github.com/rautiais/ot-harjoitustyo/tree/main/laskarit)
-
 ## Volleyball Statistics Tracking Application
 
 The _volleyball statistics tracking application_ is used for tracking various **statistics** in a volleyball game, initially focusing on serve-receive.
@@ -26,4 +23,11 @@ poetry run invoke build
 3. Start the application with the command:
 ```
 poetry run invoke start
+```
+
+### Testing
+
+Run tests with the command:
+```
+poetry run invoke test
 ```
