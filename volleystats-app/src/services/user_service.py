@@ -13,6 +13,9 @@ class UserService:
         
         self._user = user
         return True
+    
+    def logout(self):
+        self._user = None
 
     def create_user(self, username: str, password: str):
         if len(username) < 3 or len(password) < 8:

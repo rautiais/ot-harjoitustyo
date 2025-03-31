@@ -2,10 +2,11 @@ from tkinter import ttk, constants, StringVar
 from services.user_service import UserService
 
 class LoginView:
-    def __init__(self, root, handle_register):
+    def __init__(self, root, handle_register, handle_logged_in, user_service):
         self._root = root
-        self._handle_login_view = handle_register
-        self._user_service = UserService()
+        self._handle_register = handle_register
+        self._handle_logged_in = handle_logged_in
+        self._user_service = user_service
         self._frame = None
         self._username_entry = None
         self._password_entry = None
@@ -25,7 +26,7 @@ class LoginView:
         password = self._password_entry.get()
 
         if self._user_service.login(username, password):
-            pass
+            self._handle_logged_in()
         else:
             self._error_variable.set("Invalid username or password")
 
@@ -51,7 +52,7 @@ class LoginView:
         register_button = ttk.Button(
             master=self._frame,
             text="Create new user",
-            command=self._handle_login_view
+            command=self._handle_register
         )
 
         self._error_label = ttk.Label(
