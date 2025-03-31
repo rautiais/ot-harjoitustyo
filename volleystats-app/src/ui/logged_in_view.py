@@ -35,5 +35,5 @@ class LoggedInView:
             command=self._logout_handler
         )
 
-        heading_label.grid(row=0, column=0, columnspan=2, sticky=constants.W, padx=5, pady=5)
-        logout_button.grid(row=1, column=0, sticky=(constants.E, constants.W), padx=5, pady=5)
+        heading_label.grid(row=0, column=0, columnspan=2, sticky=constants.W, padx=8, pady=8)
+        logout_button.grid(row=1, column=0, sticky=(constants.E, constants.W), padx=8, pady=8)
