@@ -16,11 +16,7 @@ The _volleyball statistics tracking application_ is used for tracking various **
 ```
 poetry install
 ```
-2. Perform the required initialization operations with the command:
-```
-poetry run invoke build
-```
-3. Start the application with the command:
+2. Start the application with the command:
 ```
 poetry run invoke start
 ```
