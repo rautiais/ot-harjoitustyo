@@ -1,13 +1,12 @@
 from tkinter import Tk
-from ui.login_view import LoginView
-
+from ui.ui import UI
 
 def main():
     window = Tk()
     window.title("VolleyStats")
 
-    # ui_view = UI(window)
-    # ui_view.start()
+    ui_view = UI(window)
+    ui_view.start()
 
     window.mainloop()
 
