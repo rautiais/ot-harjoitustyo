@@ -1,5 +1,6 @@
 from entities.user import User
 
+
 class UserRepository:
     def __init__(self):
         self.users = {}
@@ -10,6 +11,6 @@ class UserRepository:
         user = User(username, password)
         self.users[username] = user
         return user
-    
+
     def find_by_username(self, username: str):
         return self.users.get(username)
