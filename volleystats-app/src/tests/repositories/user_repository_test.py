@@ -1,7 +1,6 @@
 import unittest
 from repositories.user_repository import UserRepository
 from initialize_database import initialize_database
-from entities.user import User
 
 
 class TestUserRepository(unittest.TestCase):
@@ -32,3 +31,9 @@ class TestUserRepository(unittest.TestCase):
         self.user_repository.create_user("Paavo", "Kissa123")
         result = self.user_repository.create_user("Paavo", "Koira123")
         self.assertIsNone(result)
+
+    def test_delete_all_users(self):
+        """Test that all users can be deleted from the database"""
+        self.user_repository.create_user("Paavo", "Kissa123")
+        delete = self.user_repository.delete_all()
+        self.assertEqual(delete, None)

@@ -28,3 +28,26 @@ class TestUserService(unittest.TestCase):
         self.user_service.create_user("Paavo", "Kissa123")
         result = self.user_service.create_user("Paavo", "Koira123")
         self.assertFalse(result)
+
+    def test_login_with_valid_credentials(self):
+        """Test that logging in with valid credentials works"""
+        self.user_service.create_user("Paavo", "Kissa123")
+        result = self.user_service.login("Paavo", "Kissa123")
+        self.assertTrue(result)
+
+    def test_login_with_invalid_username(self):
+        """Test that logging in with invalid username doesn't work"""
+        self.user_service.create_user("Paavo", "Kissa123")
+        result = self.user_service.login("Sirpa", "Kissa123")
+        self.assertFalse(result)
+
+    def test_login_with_invalid_password(self):
+        """Test that logging in with invalid password doesn't work"""
+        self.user_service.create_user("Paavo", "Kissa123")
+        result = self.user_service.login("Paavo", "Koira123")
+        self.assertFalse(result)
+
+    def test_logging_out(self):
+        """Test that logging out works"""
+        self.user_service.logout()
+        self.assertIsNone(self.user_service.get_current_user())
