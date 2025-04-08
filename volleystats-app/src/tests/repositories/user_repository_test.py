@@ -1,9 +1,12 @@
 import unittest
 from repositories.user_repository import UserRepository
+from initialize_database import initialize_database
 from entities.user import User
+
 
 class TestUserRepository(unittest.TestCase):
     def setUp(self):
+        initialize_database()
         self.user_repository = UserRepository()
 
     def test_create_user(self):

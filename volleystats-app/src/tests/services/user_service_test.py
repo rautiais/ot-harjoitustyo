@@ -1,8 +1,11 @@
 import unittest
 from services.user_service import UserService
+from initialize_database import initialize_database
+
 
 class TestUserService(unittest.TestCase):
     def setUp(self):
+        initialize_database()
         self.user_service = UserService()
 
     def test_create_user_with_valid_credentials(self):
