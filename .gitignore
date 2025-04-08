@@ -2,4 +2,7 @@
 __pycache__
 .coverage
 htmlcov
-data/*.sqlite
+
+# data files
+data/database.sqlite
+DB_FILE_PATH
