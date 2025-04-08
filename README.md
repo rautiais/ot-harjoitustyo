@@ -27,3 +27,10 @@ Run tests with the command:
 ```
 poetry run invoke test
 ```
+
+### Pylint
+
+Run the checks defined in the file [.pylintrc](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/.pylintrc) with the command:
+```
+poetry run invoke lint
+```
