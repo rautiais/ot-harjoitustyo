@@ -1,8 +1,19 @@
+# Python cache files
 .pytest_cache
 __pycache__
+*.py[cod]
+
+# Coverage reports
 .coverage
 htmlcov
 
-# data files
-volleystats-app/data/database.sqlite
-volleystats-app/DB_FILE_PATH
+# Database files
+**/data/*.sqlite
+**/data/*.db
+
+# VSCode settings
+.vscode/
+
+# Virtual environment
+.venv/
+venv/
