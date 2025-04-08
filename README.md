@@ -1,4 +1,4 @@
-## Volleyball Statistics Tracking Application
+# Volleyball Statistics Tracking Application
 
 The _volleyball statistics tracking application_ is used for tracking various **statistics** in a volleyball game, initially focusing on serve-receive.
 
@@ -10,13 +10,22 @@ The _volleyball statistics tracking application_ is used for tracking various **
 
 ## Installation
 
-### Startup instructions
-
 1. Install the dependencies with the command:
+
 ```
 poetry install
 ```
+
 2. Start the application with the command:
+
+```
+poetry run invoke start
+```
+
+### Startup instructions
+
+Start the application with the command:
+
 ```
 poetry run invoke start
 ```
@@ -24,13 +33,23 @@ poetry run invoke start
 ### Testing
 
 Run tests with the command:
+
 ```
 poetry run invoke test
+```
+
+### Test coverage
+
+Generate the test coverage with the command:
+
+```
+poetry run invoke coverage-report
 ```
 
 ### Pylint
 
 Run the checks defined in the file [.pylintrc](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/.pylintrc) with the command:
+
 ```
 poetry run invoke lint
 ```
