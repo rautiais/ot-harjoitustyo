@@ -1,5 +1,6 @@
 from tkinter import ttk, constants
 
+
 class LoggedInView:
     def __init__(self, root, user_service, handle_logout):
         self._root = root
@@ -20,10 +21,10 @@ class LoggedInView:
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
-        
+
         user = self._user_service.get_current_user()
         welcome_text = f"Welcome {user.username}!"
-        
+
         heading_label = ttk.Label(
             master=self._frame,
             text=welcome_text
@@ -35,5 +36,7 @@ class LoggedInView:
             command=self._logout_handler
         )
 
-        heading_label.grid(row=0, column=0, columnspan=2, sticky=constants.W, padx=8, pady=8)
-        logout_button.grid(row=1, column=0, sticky=(constants.E, constants.W), padx=8, pady=8)
+        heading_label.grid(row=0, column=0, columnspan=2,
+                           sticky=constants.W, padx=8, pady=8)
+        logout_button.grid(row=1, column=0, sticky=(
+            constants.E, constants.W), padx=8, pady=8)

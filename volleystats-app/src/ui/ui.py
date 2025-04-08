@@ -68,7 +68,6 @@ class UI:
         )
         self._current_view.pack()
 
-
     def start(self):
         """Shows the login view when the application starts"""
         self._show_login_view()
