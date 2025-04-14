@@ -6,7 +6,7 @@
 
 ## Sequence diagram: creating a new user
 
-When user inputs unused username and password and clicks "Create", the control of the application proceeds as follows:
+When user inputs unused username and password and clicks "Register", the control of the application proceeds as follows:
 
 ```mermaid
 sequenceDiagram
@@ -15,7 +15,7 @@ sequenceDiagram
   participant UserService
   participant UserRepository
   participant paavo
-  User->>UI: click "Create user" button
+  User->>UI: click "Create new user" button
   UI->>UserService: create_user("paavo", "kissa123")
   UserService->>UserRepository: find_by_username("paavo")
   UserRepository-->>UserService: None
