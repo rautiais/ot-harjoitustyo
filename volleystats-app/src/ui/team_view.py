@@ -67,7 +67,7 @@ class TeamView:
         )
 
         heading_label.grid(row=0, column=0, columnspan=2,
-                         sticky=constants.W, padx=5, pady=5)
+                        sticky=constants.W, padx=5, pady=5)
         player_name_label.grid(row=1, column=0, padx=5, pady=5)
         self._player_name_entry.grid(
             row=1, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
@@ -80,7 +80,9 @@ class TeamView:
             row=4, column=0, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
         self._error_label.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
         players_label.grid(row=6, column=0, columnspan=2,
-                         sticky=constants.W, padx=5, pady=5)
+                        sticky=constants.W, padx=5, pady=5)
+
+        self._show_players()
 
     def _add_player_handler(self):
         name = self._player_name_entry.get()
@@ -105,5 +107,27 @@ class TeamView:
             self._error_variable.set("Failed to add player")
 
     def _show_players(self):
-        # TODO: Implement player list display
-        pass
+        for widget in self._frame.grid_slaves():
+            if isinstance(widget, ttk.Label) and widget.grid_info()["row"] >= 7:
+                widget.destroy()
+
+        players = self._team_service.get_team_players(self._team.team_id)
+        row = 7
+
+        if not players:
+            no_players_label = ttk.Label(
+                master=self._frame,
+                text="No players added yet"
+            )
+            no_players_label.grid(row=row, column=0, columnspan=2,
+                                sticky=constants.W, padx=5, pady=2)
+            return
+
+        for player in players:
+            player_label = ttk.Label(
+                master=self._frame,
+                text=f"#{player.number} {player.name}"
+            )
+            player_label.grid(row=row, column=0, columnspan=2,
+                            sticky=constants.W, padx=5, pady=2)
+            row += 1
