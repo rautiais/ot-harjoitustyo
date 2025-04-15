@@ -32,6 +32,9 @@ class LoggedInView:
         else:
             self._error_variable.set("Team creation failed")
 
+    def _handle_team_click(self, team):
+        print(f"Team {team.name} clicked")
+
     def _show_teams(self):
         # Clear existing team labels
         for widget in self._frame.grid_slaves():
@@ -42,8 +45,16 @@ class LoggedInView:
         row = 6
 
         for team in teams:
-            label = ttk.Label(master=self._frame, text=f"{team.name}")
-            label.grid(row=row, column=0, columnspan=2, sticky=constants.W, pady=5, padx=5)
+            team_frame = ttk.Frame(self._frame)
+            team_frame.grid(row=row, column=0, columnspan=2, 
+                        sticky=constants.W, pady=2, padx=5)
+            
+            team_button = ttk.Button(
+                master=team_frame,
+                text=team.name,
+                command=lambda t=team: self._handle_team_click(t)
+            )
+            team_button.pack(fill=constants.X)
             row += 1
 
     def _initialize(self):
