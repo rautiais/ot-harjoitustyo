@@ -1,3 +1,4 @@
+import sqlite3
 from repositories.team_repository import TeamRepository
 from repositories.player_repository import PlayerRepository
 
@@ -26,7 +27,7 @@ class TeamService:
         try:
             self._player_repository.create_player(name, number, team_id)
             return True
-        except Exception:
+        except sqlite3.Error:
             return False
 
     def get_user_teams(self):
