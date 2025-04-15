@@ -2,16 +2,21 @@ import unittest
 from repositories.team_repository import TeamRepository
 from repositories.user_repository import UserRepository
 from initialize_database import initialize_database
-
+from database_connection import set_database_path, close_connection
+from config import TEST_DATABASE_FILE_PATH
 
 class TestTeamRepository(unittest.TestCase):
     def setUp(self):
+        set_database_path(TEST_DATABASE_FILE_PATH)
         initialize_database()
         self.team_repository = TeamRepository()
         self.user_repository = UserRepository()
 
         # Create a test user
         self.test_user = self.user_repository.create_user("Paavo", "Kissa123")
+
+    def tearDown(self):
+        close_connection()
 
     def test_create_team(self):
         """Test that creating a team works"""

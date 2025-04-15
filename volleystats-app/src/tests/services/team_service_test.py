@@ -2,15 +2,22 @@ import unittest
 from services.team_service import TeamService
 from services.user_service import UserService
 from initialize_database import initialize_database
+from database_connection import set_database_path, close_connection
+from config import TEST_DATABASE_FILE_PATH
+
 
 class TestTeamService(unittest.TestCase):
     def setUp(self):
+        set_database_path(TEST_DATABASE_FILE_PATH)
         initialize_database()
         self.user_service = UserService()
         self.team_service = TeamService(self.user_service)
         # Create and login a test user
         self.user_service.create_user("Paavo", "Kissa123")
         self.user_service.login("Paavo", "Kissa123")
+
+    def tearDown(self):
+        close_connection()
 
     def test_create_team_with_valid_name(self):
         """Test that creating a team with a valid name works"""

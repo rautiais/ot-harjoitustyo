@@ -1,12 +1,18 @@
 import unittest
 from repositories.user_repository import UserRepository
 from initialize_database import initialize_database
+from database_connection import set_database_path, close_connection
+from config import TEST_DATABASE_FILE_PATH
 
 
 class TestUserRepository(unittest.TestCase):
     def setUp(self):
+        set_database_path(TEST_DATABASE_FILE_PATH)
         initialize_database()
         self.user_repository = UserRepository()
+
+    def tearDown(self):
+        close_connection()
 
     def test_create_user(self):
         """Test that user can be created"""
@@ -35,5 +41,7 @@ class TestUserRepository(unittest.TestCase):
     def test_delete_all_users(self):
         """Test that all users can be deleted from the database"""
         self.user_repository.create_user("Paavo", "Kissa123")
-        delete = self.user_repository.delete_all()
-        self.assertEqual(delete, None)
+        self.user_repository.delete_all()
+
+        result = self.user_repository.find_by_username("Paavo")
+        self.assertIsNone(result)

@@ -1,12 +1,18 @@
 import unittest
 from services.user_service import UserService
 from initialize_database import initialize_database
+from database_connection import set_database_path, close_connection
+from config import TEST_DATABASE_FILE_PATH
 
 
 class TestUserService(unittest.TestCase):
     def setUp(self):
+        set_database_path(TEST_DATABASE_FILE_PATH)
         initialize_database()
         self.user_service = UserService()
+
+    def tearDown(self):
+        close_connection()
 
     def test_create_user_with_valid_credentials(self):
         """Test that creating user with valid credentials works"""
