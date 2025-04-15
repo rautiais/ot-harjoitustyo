@@ -15,18 +15,24 @@ class UserRepository:
                 (username, password)
             )
             self._connection.commit()
-            return User(username, password)
+
+            cursor.execute(
+                "SELECT id FROM users WHERE username=?",
+                (username,)
+            )
+            user_id = cursor.fetchone()["id"]
+            return User(username, password, user_id)
         except sqlite3.IntegrityError:
             return None
 
     def find_by_username(self, username: str):
         cursor = self._connection.cursor()
         cursor.execute(
-            "SELECT username, password FROM users WHERE username=?",
+            "SELECT id, username, password FROM users WHERE username=?",
             (username,)
         )
         row = cursor.fetchone()
-        return User(row["username"], row["password"]) if row else None
+        return User(row["username"], row["password"], row["id"]) if row else None
 
     def delete_all(self):
         """Delete all users from the database."""

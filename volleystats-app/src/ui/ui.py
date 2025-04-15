@@ -3,6 +3,7 @@ from ui.login_view import LoginView
 from ui.registration_view import RegistrationView
 from ui.logged_in_view import LoggedInView
 from services.user_service import UserService
+from services.team_service import TeamService
 
 
 class UI:
@@ -13,6 +14,7 @@ class UI:
         self._root = root
         self._current_view = None
         self._user_service = UserService()
+        self._team_service = TeamService(self._user_service)
 
     def _hide_current_view(self):
         """Hides current window if it exists"""
@@ -60,10 +62,10 @@ class UI:
     def _show_logged_in_view(self):
         """Hides the current view"""
         self._hide_current_view()
-        """Callback method for switching back to login view when user logs out"""
         self._current_view = LoggedInView(
             self._root,
             self._user_service,
+            self._team_service,
             self._handle_logout
         )
         self._current_view.pack()
