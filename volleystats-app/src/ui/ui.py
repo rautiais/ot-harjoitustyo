@@ -48,6 +48,7 @@ class UI:
         self._current_view = TeamView(
             self._root,
             team,
+            self._team_service,
             self._handle_back_to_teams
         )
         self._current_view.pack()

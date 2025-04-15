@@ -2,9 +2,10 @@ from tkinter import ttk, constants, StringVar, font
 
 
 class TeamView:
-    def __init__(self, root, team, handle_back):
+    def __init__(self, root, team, team_service, handle_back):
         self._root = root
         self._team = team
+        self._team_service = team_service
         self._handle_back = handle_back
         self._frame = None
         self._player_name_entry = None
@@ -82,8 +83,26 @@ class TeamView:
                          sticky=constants.W, padx=5, pady=5)
 
     def _add_player_handler(self):
-        # TODO: Implement player addition
-        pass
+        name = self._player_name_entry.get()
+        number = self._player_number_entry.get()
+
+        if not name or not number:
+            self._error_variable.set("Name and number required")
+            return
+
+        try:
+            number = int(number)
+        except ValueError:
+            self._error_variable.set("Number must be a valid integer")
+            return
+
+        if self._team_service.create_player(self._team.team_id, name, number):
+            self._player_name_entry.delete(0, constants.END)
+            self._player_number_entry.delete(0, constants.END)
+            self._error_variable.set("")
+            self._show_players()
+        else:
+            self._error_variable.set("Failed to add player")
 
     def _show_players(self):
         # TODO: Implement player list display
