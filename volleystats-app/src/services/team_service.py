@@ -1,5 +1,4 @@
 from repositories.team_repository import TeamRepository
-from services.user_service import UserService
 
 
 class TeamService:
