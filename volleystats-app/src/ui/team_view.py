@@ -1,0 +1,90 @@
+from tkinter import ttk, constants, StringVar, font
+
+
+class TeamView:
+    def __init__(self, root, team, handle_back):
+        self._root = root
+        self._team = team
+        self._handle_back = handle_back
+        self._frame = None
+        self._player_name_entry = None
+        self._player_number_entry = None
+        self._error_variable = None
+        self._error_label = None
+        self._initialize()
+
+    def pack(self):
+        self._frame.pack(fill=constants.X)
+
+    def destroy(self):
+        self._frame.destroy()
+
+    def _initialize(self):
+        self._frame = ttk.Frame(master=self._root)
+        self._error_variable = StringVar(self._frame)
+
+        heading_label = ttk.Label(
+            master=self._frame,
+            text=f"Team: {self._team.name}",
+            font=font.Font(weight="bold")
+        )
+
+        player_name_label = ttk.Label(
+            master=self._frame,
+            text="Player name"
+        )
+        self._player_name_entry = ttk.Entry(master=self._frame)
+
+        player_number_label = ttk.Label(
+            master=self._frame,
+            text="Jersey number"
+        )
+        self._player_number_entry = ttk.Entry(master=self._frame)
+
+        add_player_button = ttk.Button(
+            master=self._frame,
+            text="Add player",
+            command=self._add_player_handler
+        )
+
+        back_button = ttk.Button(
+            master=self._frame,
+            text="Back to teams",
+            command=self._handle_back
+        )
+
+        self._error_label = ttk.Label(
+            master=self._frame,
+            textvariable=self._error_variable,
+            foreground='red'
+        )
+
+        players_label = ttk.Label(
+            master=self._frame,
+            text="Players:",
+            font=font.Font(weight="bold")
+        )
+
+        heading_label.grid(row=0, column=0, columnspan=2,
+                         sticky=constants.W, padx=5, pady=5)
+        player_name_label.grid(row=1, column=0, padx=5, pady=5)
+        self._player_name_entry.grid(
+            row=1, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
+        player_number_label.grid(row=2, column=0, padx=5, pady=5)
+        self._player_number_entry.grid(
+            row=2, column=1, sticky=(constants.E, constants.W), padx=5, pady=5)
+        add_player_button.grid(
+            row=3, column=0, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        back_button.grid(
+            row=4, column=0, columnspan=2, sticky=(constants.E, constants.W), padx=5, pady=5)
+        self._error_label.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
+        players_label.grid(row=6, column=0, columnspan=2,
+                         sticky=constants.W, padx=5, pady=5)
+
+    def _add_player_handler(self):
+        # TODO: Implement player addition
+        pass
+
+    def _show_players(self):
+        # TODO: Implement player list display
+        pass

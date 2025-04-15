@@ -2,11 +2,12 @@ from tkinter import ttk, constants, StringVar, font
 
 
 class LoggedInView:
-    def __init__(self, root, user_service, team_service, handle_logout):
+    def __init__(self, root, user_service, team_service, handle_logout, handle_team_view):
         self._root = root
         self._user_service = user_service
         self._team_service = team_service
         self._handle_logout = handle_logout
+        self._handle_team_view = handle_team_view
         self._frame = None
         self._team_name_entry = None
         self._error_variable = None
@@ -33,6 +34,7 @@ class LoggedInView:
             self._error_variable.set("Team creation failed")
 
     def _handle_team_click(self, team):
+        self._handle_team_view(team)
         print(f"Team {team.name} clicked")
 
     def _show_teams(self):
@@ -46,9 +48,9 @@ class LoggedInView:
 
         for team in teams:
             team_frame = ttk.Frame(self._frame)
-            team_frame.grid(row=row, column=0, columnspan=2, 
-                        sticky=constants.W, pady=2, padx=5)
-            
+            team_frame.grid(row=row, column=0, columnspan=2,
+                            sticky=constants.W, pady=2, padx=5)
+
             team_button = ttk.Button(
                 master=team_frame,
                 text=team.name,

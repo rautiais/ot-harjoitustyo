@@ -4,6 +4,7 @@ from ui.registration_view import RegistrationView
 from ui.logged_in_view import LoggedInView
 from services.user_service import UserService
 from services.team_service import TeamService
+from ui.team_view import TeamView
 
 
 class UI:
@@ -34,8 +35,26 @@ class UI:
         self._show_logged_in_view()
 
     def _handle_logout(self):
-        """"""""
+        """"Callback method for switching back to login view when logout is successful"""
         self._show_login_view()
+
+    def _handle_team_view(self, team):
+        """Callback method for switching to team view"""
+        self._show_team_view(team)
+
+    def _show_team_view(self, team):
+        """Shows the team view for a specific team"""
+        self._hide_current_view()
+        self._current_view = TeamView(
+            self._root,
+            team,
+            self._handle_back_to_teams
+        )
+        self._current_view.pack()
+
+    def _handle_back_to_teams(self):
+        """Callback method for returning to teams view"""
+        self._show_logged_in_view()
 
     def _show_login_view(self):
         """Hides the current view"""
@@ -60,13 +79,14 @@ class UI:
         self._current_view.pack()
 
     def _show_logged_in_view(self):
-        """Hides the current view"""
+        """Shows the logged in view"""
         self._hide_current_view()
         self._current_view = LoggedInView(
             self._root,
             self._user_service,
             self._team_service,
-            self._handle_logout
+            self._handle_logout,
+            self._handle_team_view
         )
         self._current_view.pack()
 
