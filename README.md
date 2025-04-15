@@ -8,6 +8,7 @@ The _volleyball statistics tracking application_ is used for tracking various **
 - [Time sheets](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/tuntikirjanpito.md)
 - [Changelog](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/changelog.md)
 - [Architecture](https://github.com/rautiais/ot-harjoitustyo/blob/main/volleystats-app/dokumentaatio/arkkitehtuuri.md)
+- [Releases](https://github.com/rautiais/ot-harjoitustyo/releases/tag/vikko5)
 
 ## Installation
 
@@ -22,6 +23,7 @@ poetry install
 ```
 poetry run invoke start
 ```
+
 ## Invoke-commands
 
 ### Startup instructions
