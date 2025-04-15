@@ -12,21 +12,22 @@ The application has a so-called "normal user", who can be created and deleted.
 
 #### Before Logging In
 
-- User can create a new account (done)
-- User can log in (done)
+- User can create a new account (_done_)
+- User can log in (_done_)
 
 #### After Logging In
 
+- User can create a new team (_done_)
+- User can add players to a team (_done_)
 - User can start a new game
-- User can add players to the game
-- User can change players on the court if needed
 - User can start a new set
+- User can change players on the court if needed
 - User can add the statistics for a pass in serve-receive
 - User can add the statistics for a serve in serve-receive
 - User can end the game
 - User can see the overall statistics of the game
 - User can delete their own account
-- User can log out (done)
+- User can log out (_done_)
 
 ### Ideas for Further Development
 
