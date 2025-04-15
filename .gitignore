@@ -17,3 +17,6 @@ htmlcov
 # Virtual environment
 .venv/
 venv/
+
+# ...existing entries...
+data/test-database.sqlite
