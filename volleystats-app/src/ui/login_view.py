@@ -3,6 +3,8 @@ from services.user_service import UserService
 
 
 class LoginView:
+    """Class for login view
+    """
     def __init__(self, root, handle_register, handle_logged_in, user_service):
         self._root = root
         self._handle_register = handle_register

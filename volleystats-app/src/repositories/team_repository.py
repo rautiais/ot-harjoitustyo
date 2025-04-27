@@ -3,10 +3,25 @@ from database_connection import get_database_connection
 
 
 class TeamRepository:
+    """
+    Repository for managing team data in the database.
+    """
+
     def __init__(self):
+        """Initializes the TeamRepository with a database connection."""
         self._connection = get_database_connection()
 
     def create_team(self, name: str, user_id: int):
+        """
+        Creates a new team in the database.
+
+        Args:
+            name (str): Team name.
+            user_id (int): ID of the user who created the team.
+
+        Returns:
+            Class: Team object representing the created team.
+        """
         cursor = self._connection.cursor()
 
         cursor.execute('''
@@ -23,6 +38,15 @@ class TeamRepository:
         return Team(name, user_id, team_id)
 
     def get_user_teams(self, user_id: int):
+        """
+        Retrieves all teams for a given user from the database.
+
+        Args:
+            user_id (int): ID of the user.
+
+        Returns:
+            List: A list of Team objects belonging to the user.
+        """
         cursor = self._connection.cursor()
 
         cursor.execute('''

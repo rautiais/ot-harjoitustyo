@@ -6,6 +6,9 @@ class DatabaseConnection:
     """Class for managing database connections"""
 
     def __init__(self):
+        """
+        Initializes the DatabaseConnection with a database path.
+        """
         self._connection = None
         self._database_path = DATABASE_FILE_PATH
 
@@ -24,7 +27,10 @@ class DatabaseConnection:
             self._connection = None
 
     def set_database_path(self, path):
-        """Sets the database path and closes any existing connection"""
+        """Sets the database path and closes any existing connection
+        Args:
+            path (str): The new database path.
+        """
         self.close_connection()
         self._database_path = path
 

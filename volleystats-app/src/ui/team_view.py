@@ -2,6 +2,8 @@ from tkinter import ttk, constants, StringVar, font
 
 
 class TeamView:
+    """Class for team view
+    """
     def __init__(self, root, team, team_service, handle_back):
         self._root = root
         self._team = team

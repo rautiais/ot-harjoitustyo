@@ -11,7 +11,11 @@ class UI:
     """Class for user interface"""
 
     def __init__(self, root):
-        """Entity is created to handle all ui functionality. Current view keeps track of which view is displayed currently"""
+        """
+        Initializes the UI with the root window.
+        Args:
+            root (Tk): The root window of the application.
+        """
         self._root = root
         self._current_view = None
         self._user_service = UserService()
@@ -39,11 +43,17 @@ class UI:
         self._show_login_view()
 
     def _handle_team_view(self, team):
-        """Callback method for switching to team view"""
+        """Callback method for switching to team view
+        Args:
+            team: The team object to be displayed in the team view.
+        """
         self._show_team_view(team)
 
     def _show_team_view(self, team):
-        """Shows the team view for a specific team"""
+        """Shows the team view for a specific team
+        Args:
+            team: The team object to be displayed in the team view.
+        """
         self._hide_current_view()
         self._current_view = TeamView(
             self._root,
@@ -58,9 +68,8 @@ class UI:
         self._show_logged_in_view()
 
     def _show_login_view(self):
-        """Hides the current view"""
+        """Hides current view. Creates new login view and passes the registration handle"""
         self._hide_current_view()
-        """Creates new login view and passes the registration handle"""
         self._current_view = LoginView(
             self._root,
             self._handle_register,
@@ -70,9 +79,8 @@ class UI:
         self._current_view.pack()
 
     def _show_register_view(self):
-        """Hides the current view"""
+        """Hides the current view. Creates new register view and passes the login handler"""
         self._hide_current_view()
-        """Creates new register view and passes the login handler"""
         self._current_view = RegistrationView(
             self._root,
             self._handle_login

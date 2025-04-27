@@ -2,6 +2,8 @@ from tkinter import ttk, constants, StringVar, font
 
 
 class LoggedInView:
+    """Class for logged in view
+    """
     def __init__(self, root, user_service, team_service, handle_logout, handle_team_view):
         self._root = root
         self._user_service = user_service
