@@ -21,7 +21,8 @@ class UserRepository:
             password (str): Password of the new user.
 
         Returns:
-            Class: User object representing the created user, or None if the username already exists.
+            Class: User object representing the created user.
+            Returns None if the username already exists.
         """
         cursor = self._connection.cursor()
         try:

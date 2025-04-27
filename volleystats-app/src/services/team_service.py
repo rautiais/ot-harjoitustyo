@@ -51,7 +51,8 @@ class TeamService:
 
         Returns:
             True: if the player was created successfully.
-            False: if the player name is invalid, the number is negative, or the user is not logged in.
+            False: if the player name is invalid, the number is negative, 
+            or the user is not logged in.
         """
         if len(name) < 2 or number < 0:
             return False
