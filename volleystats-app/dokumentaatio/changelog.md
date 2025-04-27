@@ -19,3 +19,8 @@
 - The user can go back to teams-page
 - Creating team -functionality is tested
 - Adding players -functionality is tested
+
+## Week 6
+
+- The user can start a new game
+- Start a new game -functionality is tested

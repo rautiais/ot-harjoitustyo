@@ -11,5 +11,5 @@
 | 13.4. | 1,0      | Started working on the main page                                                                           |
 | 14.4. | 2,0      | Working on adding a new team and sequence diagram                                                          |
 | 15.4. | 3,0      | Tests for new functionalities, database configuration improvements, adding teams and players functionality |
-| 27.4. | 1,0      | Instructions, docstring                                                                                    |
-|  Sum  | 19       |                                                                                                            |
+| 27.4. | 4,0      | Instructions, docstring, new functionality: creating a game, tests                                         |
+|  Sum  | 22       |                                                                                                            |

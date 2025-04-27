@@ -19,7 +19,7 @@ The application has a so-called "normal user", who can be created and deleted.
 
 - User can create a new team (_done_)
 - User can add players to a team (_done_)
-- User can start a new game
+- User can start a new game (_done_)
 - User can start a new set
 - User can change players on the court if needed
 - User can add the statistics for a pass in serve-receive
