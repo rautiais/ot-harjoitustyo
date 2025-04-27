@@ -1,4 +1,3 @@
-import sqlite3
 from datetime import datetime
 from entities.game import Game
 from database_connection import get_database_connection
