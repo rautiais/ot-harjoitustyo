@@ -1,6 +1,7 @@
 import sqlite3
 from repositories.team_repository import TeamRepository
 from repositories.player_repository import PlayerRepository
+from repositories.game_repository import GameRepository
 
 
 class TeamService:
@@ -17,6 +18,7 @@ class TeamService:
         """
         self._team_repository = TeamRepository()
         self._player_repository = PlayerRepository()
+        self._game_repository = GameRepository()
         self._user_service = user_service
 
     def create_team(self, team_name: str):
@@ -27,7 +29,7 @@ class TeamService:
             team_name (str): The name of the team to be created.
 
         Returns:
-            True: if the team was created successfully.
+            bool: True if the team was created successfully.
             False: if the team name is invalid or the user is not logged in.
         """
         if len(team_name) < 2:
@@ -50,7 +52,7 @@ class TeamService:
             number (int): The number of the player to be created.
 
         Returns:
-            True: if the player was created successfully.
+            bool: True if the player was created successfully.
             False: if the player name is invalid, the number is negative, 
             or the user is not logged in.
         """
@@ -59,6 +61,21 @@ class TeamService:
 
         try:
             self._player_repository.create_player(name, number, team_id)
+            return True
+        except sqlite3.Error:
+            return False
+
+    def create_game(self, team_id: int) -> bool:
+        """Create a new game for a team
+
+        Args:
+            team_id: ID of the team
+
+        Returns:
+            bool: True if game was created successfully
+        """
+        try:
+            self._game_repository.create_game(team_id)
             return True
         except sqlite3.Error:
             return False
@@ -88,3 +105,14 @@ class TeamService:
             List: A list of players associated with the specified team.
         """
         return self._player_repository.get_team_players(team_id)
+
+    def get_team_games(self, team_id: int):
+        """Get all games for a team
+
+        Args:
+            team_id: ID of the team
+
+        Returns:
+            list: List of Game objects
+        """
+        return self._game_repository.get_team_games(team_id)

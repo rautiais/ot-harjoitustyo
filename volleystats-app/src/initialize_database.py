@@ -7,6 +7,7 @@ def drop_tables(connection):
     cursor.execute('''DROP TABLE IF EXISTS teams''')
     cursor.execute('''DROP TABLE IF EXISTS users''')
     cursor.execute('''DROP TABLE IF EXISTS players''')
+    cursor.execute('''DROP TABLE IF EXISTS games''')
     connection.commit()
 
 
