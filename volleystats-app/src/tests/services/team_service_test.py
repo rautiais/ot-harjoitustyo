@@ -50,3 +50,24 @@ class TestTeamService(unittest.TestCase):
         self.user_service.logout()
         teams = self.team_service.get_user_teams()
         self.assertEqual(len(teams), 0)
+
+    def test_create_game_succeeds(self):
+        """Test that game creation works"""
+        self.team_service.create_team("VolleyStars")
+        result = self.team_service.create_game(1)
+        self.assertTrue(result)
+
+    def test_get_team_games_returns_empty_list_when_no_games(self):
+        """Test that empty list is returned when team has no games"""
+        self.team_service.create_team("VolleyStars")
+        games = self.team_service.get_team_games(1)
+        self.assertEqual(len(games), 0)
+
+    def test_get_team_games_returns_all_games(self):
+        """Test that all team games are returned"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_game(1)
+        self.team_service.create_game(1)
+
+        games = self.team_service.get_team_games(1)
+        self.assertEqual(len(games), 2)
