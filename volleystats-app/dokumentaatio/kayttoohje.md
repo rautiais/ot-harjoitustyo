@@ -35,5 +35,12 @@ To add a new team, just type a team name that has not been used and then click _
 
 On the team's page, you can add a new player to the team. Add the name of the player and the jersey number and then click _Add player_ and the name of the player will appear on the screen.
 
-![Adding a new player](./images/addplayer.png)
+![Team page](./images/player_view.png)
+![Adding a new player](./images/addplayer1.png)
+
+### Starting a game
+
+You can click _Start new game_ and then you get a time stamp of when the game has been started. Then you can click the Game-button and you get the game view where you can see the players in the game.
+
 ![Players view](./images/players.png)
+![Players view](./images/roster.png)

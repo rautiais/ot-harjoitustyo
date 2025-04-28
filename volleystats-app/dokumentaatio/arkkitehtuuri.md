@@ -4,6 +4,7 @@
 
 The application's layered architecture has three main layers that are the UI layer, the Services layer and the Repositories layer. The relations between the layers are shown in the pacakge diagram. The UI components use the Services and the Services use Repositories. Each layer depends only on the layer below it.
 ![Package diagram](./images/achitecture_package_diagram.png)
+
 The UI layer contains all of the user interface components. The Services layer contains the business logic and acts as a middleware between UI and data storage. The Repositories layer handles the data storage and retrieval and communicates with the database.
 
 ## User Interface
@@ -14,8 +15,9 @@ The user interface has four different views. The views are handled by separate c
 - Registration view (RegistrationView)
 - Main page view (LoggedInView)
 - Team view (TeamView)
+- Game view (GameView)
 
-The UI follows a single-view-at-a-time principle so only one view is visible at once. When the application is started, the Login view appears. From there the user has to first go to the Registration view from where they can create a new user and the log in. The Main page view appears after a successful login. The Main page view includes features: creating new teams, displaying user's teams as clickable buttons and logging out. When a team is clicked, the Team view opens. The Team view includes features: adding players to teams, displaying team roster, starting new games, showing game history and returning to main page.
+The UI follows a single-view-at-a-time principle so only one view is visible at once. When the application is started, the Login view appears. From there the user has to first go to the Registration view from where they can create a new user and the log in. The Main page view appears after a successful login. The Main page view includes features: creating new teams, displaying user's teams as clickable buttons and logging out. When a team is clicked, the Team view opens. The Team view includes features: adding players to teams, displaying team roster, starting new games, showing game history and returning to main page. The Game view shows the players that are included in the team.
 
 ## Main Functionalities
 
@@ -40,3 +42,23 @@ sequenceDiagram
   UserService-->>UI: user
   UI->>UI: show_login_view()
 ```
+
+### Sequence diagram: logging in
+
+When user inputs their username and password and clicks "Login", the control of the application proceeds as follows:
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI
+    participant UserService
+    participant UserRepository
+    User->>UI: click "Login" button
+    UI->>UserService: login("paavo", "kissa123")
+    UserService->>UserRepository: find_by_username("paavo")
+    UserRepository-->>UserService: user
+    UserService-->>UI: True
+    UI->>UI: show_logged_in_view()
+```
+
+The sequence starts when user clicks the login button. The UI calls UserService's login method with the given credentials. UserService asks UserRepository to find the user by username. If user exists and password matches, UserService returns True to UI, which then switches to the logged in view.
