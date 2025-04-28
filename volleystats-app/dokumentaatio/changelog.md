@@ -23,4 +23,5 @@
 ## Week 6
 
 - The user can start a new game
+- The user can click a game and go to the game page where the team's players are listed
 - Start a new game -functionality is tested
