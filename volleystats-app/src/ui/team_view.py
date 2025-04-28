@@ -5,7 +5,7 @@ class TeamView:
     """Class for team view
     """
 
-    def __init__(self, root, team, team_service, handle_back):
+    def __init__(self, root, team, team_service, handle_back, handle_game_view):
         """
         Initializes the team view with the given parameters.
 
@@ -14,11 +14,13 @@ class TeamView:
             team: team object to be displayed
             team_service: team service for managing team data
             handle_back: handler for going back to the previous view
+            handle_game_view: handler for displaying the game view
         """
         self._root = root
         self._team = team
         self._team_service = team_service
         self._handle_back = handle_back
+        self._handle_game_view = handle_game_view
         self._frame = None
         self._player_name_entry = None
         self._player_number_entry = None
@@ -189,10 +191,11 @@ class TeamView:
             return
 
         for game in games:
-            game_label = ttk.Label(
+            game_button = ttk.Button(
                 master=self._frame,
-                text=f"Game on {game.date.strftime('%Y-%m-%d %H:%M')}"
+                text=f"Game on {game.date.strftime('%Y-%m-%d %H:%M')}",
+                command=lambda g=game: self._handle_game_view(g, self._team)
             )
-            game_label.grid(row=row, column=0, columnspan=2,
-                            sticky=constants.W, padx=5, pady=2)
+            game_button.grid(row=row, column=0, columnspan=2,
+                             sticky=(constants.E, constants.W), padx=5, pady=2)
             row += 1

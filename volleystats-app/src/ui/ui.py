@@ -5,6 +5,7 @@ from ui.logged_in_view import LoggedInView
 from services.user_service import UserService
 from services.team_service import TeamService
 from ui.team_view import TeamView
+from ui.game_view import GameView
 
 
 class UI:
@@ -49,6 +50,10 @@ class UI:
         """
         self._show_team_view(team)
 
+    def _handle_game_view(self, game, team):
+        """Callback method for switching to game view"""
+        self._show_game_view(game, team)
+
     def _show_team_view(self, team):
         """Shows the team view for a specific team
         Args:
@@ -59,13 +64,26 @@ class UI:
             self._root,
             team,
             self._team_service,
-            self._handle_back_to_teams
+            self._handle_back_to_team,
+            self._handle_game_view
         )
         self._current_view.pack()
 
-    def _handle_back_to_teams(self):
-        """Callback method for returning to teams view"""
-        self._show_logged_in_view()
+    def _handle_back_to_team(self, team):
+        """Callback method for returning to the team view"""
+        self._show_team_view(team)
+
+    def _show_game_view(self, game, team):
+        """Shows the game view for a specific game"""
+        self._hide_current_view()
+        self._current_view = GameView(
+            self._root,
+            game,
+            team,
+            self._team_service,
+            lambda: self._handle_back_to_team(team)  # Changed this line
+        )
+        self._current_view.pack()
 
     def _show_login_view(self):
         """Hides current view. Creates new login view and passes the registration handle"""
