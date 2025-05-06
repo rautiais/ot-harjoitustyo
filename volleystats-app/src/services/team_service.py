@@ -137,6 +137,45 @@ class TeamService:
         except sqlite3.Error:
             return False
 
+    def get_pass_average(self, game_id: int) -> float:
+        """Calculate average pass score for a game
+
+        Args:
+            game_id: ID of the game
+
+        Returns:
+            float: Average pass score, or 0.0 if no passes
+        """
+        try:
+            stats = self._statistics_repository.get_pass_stats_for_game(
+                game_id)
+            if not stats:
+                return 0.0
+            total_score = sum(score for _, score in stats)
+            return round(total_score / len(stats), 2)
+        except sqlite3.Error:
+            return 0.0
+
+    def get_player_pass_average(self, game_id: int, player_id: int) -> float:
+        """Calculate average pass score for a player in a game
+
+        Args:
+            game_id: ID of the game
+            player_id: ID of the player
+
+        Returns:
+            float: Player's average pass score for the game, or 0.0 if no passes
+        """
+        try:
+            stats = self._statistics_repository.get_player_pass_stats_for_game(
+                game_id, player_id)
+            if not stats:
+                return 0.0
+            total_score = sum(score[0] for score in stats)
+            return round(total_score / len(stats), 2)
+        except sqlite3.Error:
+            return 0.0
+
     def end_game(self, game_id: int) -> bool:
         """End a game
 

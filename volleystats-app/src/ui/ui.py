@@ -19,6 +19,7 @@ class UI:
         """
         self._root = root
         self._current_view = None
+        self._previous_view = None
         self._user_service = UserService()
         self._team_service = TeamService(self._user_service)
 
@@ -26,6 +27,14 @@ class UI:
         """Hides current window if it exists"""
         if self._current_view:
             self._current_view.destroy()
+
+    def _handle_back_to_teams(self):
+        """Handler for returning to teams view"""
+        self._show_logged_in_view()
+
+    def _handle_back_to_team(self, team):
+        """Handler for returning to team view"""
+        self._show_team_view(team)
 
     def _handle_register(self):
         """Callback method for switching to registration view"""
@@ -64,14 +73,10 @@ class UI:
             self._root,
             team,
             self._team_service,
-            self._handle_back_to_team,
+            self._handle_back_to_teams,
             self._handle_game_view
         )
         self._current_view.pack()
-
-    def _handle_back_to_team(self, team):
-        """Callback method for returning to the team view"""
-        self._show_team_view(team)
 
     def _show_game_view(self, game, team):
         """Shows the game view for a specific game"""
@@ -81,7 +86,7 @@ class UI:
             game,
             team,
             self._team_service,
-            lambda: self._handle_back_to_team(team)  # Changed this line
+            lambda: self._handle_back_to_team(team)
         )
         self._current_view.pack()
 

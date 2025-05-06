@@ -10,7 +10,7 @@ class GameView:
             game: Game object to display
             team: Team object
             team_service: TeamService instance
-            handle_back: Callback for returning to team view
+            handle_back: Callback for returning to the previous view
         """
         self._root = root
         self._game = game
@@ -58,6 +58,17 @@ class GameView:
             font=font.Font(weight="bold")
         )
 
+        stats_label = ttk.Label(
+            master=self._frame,
+            text="Statistics:",
+            font=font.Font(weight="bold")
+        )
+
+        self._average_label = ttk.Label(
+            master=self._frame,
+            text=f"Pass Average: {self._team_service.get_pass_average(self._game.id)}"
+        )
+
         back_button = ttk.Button(
             master=self._frame,
             text="Back to team",
@@ -87,6 +98,10 @@ class GameView:
                           sticky=constants.W, padx=5, pady=5)
 
         self._show_players_with_scoring()
+        stats_label.grid(row=27, column=0, columnspan=2,
+                         sticky=constants.W, padx=5, pady=5)
+        self._average_label.grid(row=28, column=0, columnspan=2,
+                                 sticky=constants.W, padx=5, pady=2)
 
         end_game_button.grid(row=29, column=0, columnspan=2,
                              sticky=(constants.E, constants.W), padx=5, pady=5)
@@ -95,9 +110,9 @@ class GameView:
         self._error_label.grid(row=31, column=0, columnspan=2, padx=5, pady=5)
 
     def _show_players_with_scoring(self):
-        """Display team roster with scoring buttons"""
+        """Display team roster with scoring buttons and statistics"""
         players = self._team_service.get_team_players(self._team.team_id)
-        row = 4  # Start after roster label
+        row = 4
 
         if not players:
             no_players_label = ttk.Label(
@@ -110,9 +125,12 @@ class GameView:
 
         for player in players:
             player_frame = ttk.Frame(self._frame)
+
+            player_avg = self._team_service.get_player_pass_average(
+                self._game.id, player.id)
             player_label = ttk.Label(
                 master=player_frame,
-                text=f"#{player.number} {player.name}"
+                text=f"#{player.number} {player.name} (Avg: {player_avg})"
             )
             player_label.pack(side=constants.LEFT, padx=5)
 
@@ -131,6 +149,12 @@ class GameView:
     def _add_pass_stat(self, player, score):
         """Add a pass statistic for a player"""
         if self._team_service.add_pass_stat(self._game.id, player.id, score):
+            team_avg = self._team_service.get_pass_average(self._game.id)
+            player_avg = self._team_service.get_player_pass_average(
+                self._game.id, player.id)
+            self._average_label.configure(
+                text=f"Team Pass Average: {team_avg}")
+            self._show_players_with_scoring()
             self._error_variable.set(f"Added {score} pass for {player.name}")
         else:
             self._error_variable.set("Failed to add statistic")
@@ -138,6 +162,6 @@ class GameView:
     def _end_game_handler(self):
         """Handle ending the game"""
         if self._team_service.end_game(self._game.id):
-            self._handle_back()  # Return to team view
+            self._handle_back()
         else:
             self._error_variable.set("Failed to end game")
