@@ -22,13 +22,13 @@ class GameRepository:
         date = datetime.now().isoformat()
 
         cursor.execute(
-            "INSERT INTO games (date, team_id) VALUES (?, ?)",
-            (date, team_id)
+            "INSERT INTO games (date, team_id, status) VALUES (?, ?, ?)",
+            (date, team_id, "ongoing")
         )
         self._connection.commit()
 
         game_id = cursor.lastrowid
-        return Game(team_id, datetime.fromisoformat(date), game_id)
+        return Game(team_id, datetime.fromisoformat(date), game_id, "ongoing")
 
     def get_team_games(self, team_id: int):
         """Get all games for a team
@@ -42,14 +42,20 @@ class GameRepository:
         cursor = self._connection.cursor()
 
         cursor.execute(
-            "SELECT id, date FROM games WHERE team_id = ? ORDER BY date DESC",
+            "SELECT id, date, status FROM games WHERE team_id = ? ORDER BY date DESC",
             (team_id,)
         )
 
-        return [
-            Game(team_id, datetime.fromisoformat(row["date"]), row["id"])
-            for row in cursor.fetchall()
-        ]
+        games = []
+        for row in cursor.fetchall():
+            game = Game(
+                team_id=team_id,
+                date=datetime.fromisoformat(row[1]),
+                game_id=row[0],
+                status=row[2]
+            )
+            games.append(game)
+        return games
 
     def update_game_status(self, game_id: int, status: str):
         """Update game status

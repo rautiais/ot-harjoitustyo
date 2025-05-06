@@ -9,6 +9,7 @@ def drop_tables(connection):
     cursor.execute('''DROP TABLE IF EXISTS players''')
     cursor.execute('''DROP TABLE IF EXISTS games''')
     cursor.execute('''DROP TABLE IF EXISTS pass_statistics''')
+    cursor.execute('''DROP TABLE IF EXISTS serve_statistics''')
     connection.commit()
 
 
@@ -44,8 +45,8 @@ def create_tables(connection):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS games (
             id INTEGER PRIMARY KEY,
-            date TEXT NOT NULL,
             team_id INTEGER NOT NULL,
+            date TEXT NOT NULL,
             status TEXT DEFAULT 'ongoing',
             FOREIGN KEY (team_id) REFERENCES teams (id)
         );
@@ -53,6 +54,17 @@ def create_tables(connection):
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS pass_statistics (
+            id INTEGER PRIMARY KEY,
+            game_id INTEGER NOT NULL,
+            player_id INTEGER NOT NULL,
+            score INTEGER NOT NULL,
+            FOREIGN KEY (game_id) REFERENCES games (id),
+            FOREIGN KEY (player_id) REFERENCES players (id)
+        );
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS serve_statistics (
             id INTEGER PRIMARY KEY,
             game_id INTEGER NOT NULL,
             player_id INTEGER NOT NULL,

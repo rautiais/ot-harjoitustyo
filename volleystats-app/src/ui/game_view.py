@@ -64,9 +64,20 @@ class GameView:
             font=font.Font(weight="bold")
         )
 
+        scoring_info = ttk.Label(
+            master=self._frame,
+            text=("Pass: 0=Error, 1=Poor, 2=Good, 3=Perfect\n"
+                  "Serve: 0=Error, 1=Easy serve, 2=Out of system, 3=Ace")
+        )
+
         self._average_label = ttk.Label(
             master=self._frame,
             text=f"Pass Average: {self._team_service.get_pass_average(self._game.id)}"
+        )
+
+        self._serve_average_label = ttk.Label(
+            master=self._frame,
+            text=f"Serve Average: {self._team_service.get_team_serve_average(self._game.id)}"
         )
 
         back_button = ttk.Button(
@@ -81,7 +92,7 @@ class GameView:
             foreground='red'
         )
 
-        end_game_button = ttk.Button(
+        self._end_game_button = ttk.Button(
             master=self._frame,
             text="End Game",
             command=self._end_game_handler
@@ -102,12 +113,13 @@ class GameView:
                          sticky=constants.W, padx=5, pady=5)
         self._average_label.grid(row=28, column=0, columnspan=2,
                                  sticky=constants.W, padx=5, pady=2)
-
-        end_game_button.grid(row=29, column=0, columnspan=2,
-                             sticky=(constants.E, constants.W), padx=5, pady=5)
-        back_button.grid(row=30, column=0, columnspan=2,
+        self._serve_average_label.grid(row=29, column=0, columnspan=2,
+                                       sticky=constants.W, padx=5, pady=2)
+        self._end_game_button.grid(row=30, column=0, columnspan=2,
+                                   sticky=(constants.E, constants.W), padx=5, pady=5)
+        back_button.grid(row=31, column=0, columnspan=2,
                          sticky=(constants.E, constants.W), padx=5, pady=5)
-        self._error_label.grid(row=31, column=0, columnspan=2, padx=5, pady=5)
+        self._error_label.grid(row=32, column=0, columnspan=2, padx=5, pady=5)
 
     def _show_players_with_scoring(self):
         """Display team roster with scoring buttons and statistics"""
@@ -126,25 +138,55 @@ class GameView:
         for player in players:
             player_frame = ttk.Frame(self._frame)
 
-            player_avg = self._team_service.get_player_pass_average(
+            # Player info with pass and serve averages
+            pass_avg = self._team_service.get_player_pass_average(
+                self._game.id, player.id)
+            serve_avg = self._team_service.get_player_serve_average(
                 self._game.id, player.id)
             player_label = ttk.Label(
                 master=player_frame,
-                text=f"#{player.number} {player.name} (Avg: {player_avg})"
+                text=f"#{player.number} {player.name} (Pass: {pass_avg} | Serve: {serve_avg})"
             )
             player_label.pack(side=constants.LEFT, padx=5)
 
-            for score in range(4):
-                score_button = ttk.Button(
-                    master=player_frame,
-                    text=str(score),
-                    command=lambda p=player, s=score: self._add_pass_stat(p, s)
-                )
-                score_button.pack(side=constants.LEFT, padx=2)
+            if self._game.is_ongoing():
+                # Pass score buttons
+                pass_frame = ttk.Frame(player_frame)
+                ttk.Label(master=pass_frame, text="Pass:").pack(
+                    side=constants.LEFT, padx=2)
+                for score in range(4):
+                    score_button = ttk.Button(
+                        master=pass_frame,
+                        text=str(score),
+                        command=lambda p=player, s=score: self._add_pass_stat(
+                            p, s)
+                    )
+                    score_button.pack(side=constants.LEFT, padx=2)
+                pass_frame.pack(side=constants.LEFT, padx=5)
+
+                # Serve score buttons
+                serve_frame = ttk.Frame(player_frame)
+                ttk.Label(master=serve_frame, text="Serve:").pack(
+                    side=constants.LEFT, padx=2)
+                for score in range(4):
+                    score_button = ttk.Button(
+                        master=serve_frame,
+                        text=str(score),
+                        command=lambda p=player, s=score: self._add_serve_stat(
+                            p, s)
+                    )
+                    score_button.pack(side=constants.LEFT, padx=2)
+                serve_frame.pack(side=constants.LEFT, padx=5)
 
             player_frame.grid(row=row, column=0, columnspan=2,
                               sticky=constants.W, padx=5, pady=2)
             row += 1
+
+        if self._game.is_ongoing():
+            self._end_game_button.grid(row=30, column=0, columnspan=2,
+                                       sticky=(constants.E, constants.W), padx=5, pady=5)
+        else:
+            self._end_game_button.grid_remove()
 
     def _add_pass_stat(self, player, score):
         """Add a pass statistic for a player"""
@@ -158,6 +200,19 @@ class GameView:
             self._error_variable.set(f"Added {score} pass for {player.name}")
         else:
             self._error_variable.set("Failed to add statistic")
+
+    def _add_serve_stat(self, player, score):
+        """Add a serve statistic for a player"""
+        if self._team_service.add_serve_stat(self._game.id, player.id, score):
+            team_serve_avg = self._team_service.get_team_serve_average(
+                self._game.id)
+            self._serve_average_label.configure(
+                text=f"Team Serve Average: {team_serve_avg}")
+            self._show_players_with_scoring()
+            self._error_variable.set(
+                f"Added serve score {score} for {player.name}")
+        else:
+            self._error_variable.set("Failed to add serve statistic")
 
     def _end_game_handler(self):
         """Handle ending the game"""

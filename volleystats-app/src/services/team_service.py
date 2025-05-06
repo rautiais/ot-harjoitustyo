@@ -176,6 +176,60 @@ class TeamService:
         except sqlite3.Error:
             return 0.0
 
+    def add_serve_stat(self, game_id: int, player_id: int, score: int) -> bool:
+        """Add a serve statistic for a player
+
+        Args:
+            game_id: ID of the game
+            player_id: ID of the player
+            score: Serve score (0-3)
+
+        Returns:
+            bool: True if statistic was added successfully
+        """
+        try:
+            self._statistics_repository.add_serve_stat(game_id, player_id, score)
+            return True
+        except sqlite3.Error:
+            return False
+
+    def get_player_serve_average(self, game_id: int, player_id: int) -> float:
+        """Calculate average serve score for a player in a game
+
+        Args:
+            game_id: ID of the game
+            player_id: ID of the player
+
+        Returns:
+            float: Player's average serve score for the game, or 0.0 if no serves
+        """
+        try:
+            stats = self._statistics_repository.get_player_serve_stats_for_game(game_id, player_id)
+            if not stats:
+                return 0.0
+            total_score = sum(score[0] for score in stats)
+            return round(total_score / len(stats), 2)
+        except sqlite3.Error:
+            return 0.0
+
+    def get_team_serve_average(self, game_id: int) -> float:
+        """Calculate team's average serve score for a game
+
+        Args:
+            game_id: ID of the game
+
+        Returns:
+            float: Team's average serve score, or 0.0 if no serves
+        """
+        try:
+            stats = self._statistics_repository.get_game_serve_statistics(game_id)
+            if not stats:
+                return 0.0
+            total_score = sum(score for _, score in stats)
+            return round(total_score / len(stats), 2)
+        except sqlite3.Error:
+            return 0.0
+
     def end_game(self, game_id: int) -> bool:
         """End a game
 
