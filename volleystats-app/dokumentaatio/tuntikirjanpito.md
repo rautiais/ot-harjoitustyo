@@ -13,4 +13,5 @@
 | 15.4. | 3,0      | Tests for new functionalities, database configuration improvements, adding teams and players functionality |
 | 27.4. | 5,0      | Instructions, docstring, new functionality: creating a game, tests, documentation                          |
 | 28.4. | 3,0      | New functionality: games page. Documentation                                                               |
-|  Sum  | 26       |                                                                                                            |
+| 5.5.  | 3,0      | New functionalities: add pass and serve statistics, fixing bugs                                            |
+|  Sum  | 29       |                                                                                                            |
