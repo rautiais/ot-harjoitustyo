@@ -4,7 +4,8 @@ from datetime import datetime
 class Game:
     """Class representing a volleyball game"""
 
-    def __init__(self, team_id: int, date: datetime = None, game_id: int = None, status: str = "ongoing"):
+    def __init__(self, team_id: int, date: datetime = None, game_id: int = None,
+                 status: str = "ongoing"):
         """Initialize a new game
 
         Args:
