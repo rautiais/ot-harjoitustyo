@@ -25,3 +25,10 @@
 - The user can start a new game
 - The user can click a game and go to the game page where the team's players are listed
 - Start a new game -functionality is tested
+
+## Week 7
+
+- The user can give passing score to the players in the game
+- The user can give serving score to the players in the game
+- The user can end the game
+- After the game is over, the statistics can't be changed
