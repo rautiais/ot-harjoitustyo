@@ -2,6 +2,7 @@ import sqlite3
 from repositories.team_repository import TeamRepository
 from repositories.player_repository import PlayerRepository
 from repositories.game_repository import GameRepository
+from repositories.statistics_repository import StatisticsRepository
 
 
 class TeamService:
@@ -19,6 +20,7 @@ class TeamService:
         self._team_repository = TeamRepository()
         self._player_repository = PlayerRepository()
         self._game_repository = GameRepository()
+        self._statistics_repository = StatisticsRepository()
         self._user_service = user_service
 
     def create_team(self, team_name: str):
@@ -116,3 +118,21 @@ class TeamService:
             list: List of Game objects
         """
         return self._game_repository.get_team_games(team_id)
+
+    def add_pass_stat(self, game_id: int, player_id: int, score: int) -> bool:
+        """Add a pass statistic for a player in a game
+
+        Args:
+            game_id: ID of the game
+            player_id: ID of the player
+            score: Pass score (0-3)
+
+        Returns:
+            bool: True if statistic was added successfully, False otherwise
+        """
+        try:
+            self._statistics_repository.add_pass_stat(
+                game_id, player_id, score)
+            return True
+        except sqlite3.Error:
+            return False

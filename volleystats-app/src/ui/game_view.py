@@ -34,10 +34,22 @@ class GameView:
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 
+        # Create labels
         heading_label = ttk.Label(
             master=self._frame,
             text=f"Game on {self._game.date.strftime('%Y-%m-%d %H:%M')}",
             font=font.Font(weight="bold")
+        )
+
+        scoring_label = ttk.Label(
+            master=self._frame,
+            text="Pass Scoring:",
+            font=font.Font(weight="bold")
+        )
+
+        scoring_info = ttk.Label(
+            master=self._frame,
+            text="0 = Error, 1 = Poor, 2 = Good, 3 = Perfect"
         )
 
         roster_label = ttk.Label(
@@ -58,21 +70,26 @@ class GameView:
             foreground='red'
         )
 
+        # Layout
         heading_label.grid(row=0, column=0, columnspan=2,
                            sticky=constants.W, padx=5, pady=5)
-        roster_label.grid(row=1, column=0, columnspan=2,
+        scoring_label.grid(row=1, column=0, columnspan=2,
+                           sticky=constants.W, padx=5, pady=5)
+        scoring_info.grid(row=2, column=0, columnspan=2,
+                          sticky=constants.W, padx=5, pady=2)
+        roster_label.grid(row=3, column=0, columnspan=2,
                           sticky=constants.W, padx=5, pady=5)
 
-        self._show_players()
+        self._show_players_with_scoring()
 
-        back_button.grid(row=20, column=0, columnspan=2,
+        back_button.grid(row=30, column=0, columnspan=2,
                          sticky=(constants.E, constants.W), padx=5, pady=5)
-        self._error_label.grid(row=21, column=0, columnspan=2, padx=5, pady=5)
+        self._error_label.grid(row=31, column=0, columnspan=2, padx=5, pady=5)
 
-    def _show_players(self):
-        """Display team roster"""
+    def _show_players_with_scoring(self):
+        """Display team roster with scoring buttons"""
         players = self._team_service.get_team_players(self._team.team_id)
-        row = 2
+        row = 4  # Start after roster label
 
         if not players:
             no_players_label = ttk.Label(
@@ -84,10 +101,28 @@ class GameView:
             return
 
         for player in players:
+            player_frame = ttk.Frame(self._frame)
             player_label = ttk.Label(
-                master=self._frame,
+                master=player_frame,
                 text=f"#{player.number} {player.name}"
             )
-            player_label.grid(row=row, column=0, columnspan=2,
+            player_label.pack(side=constants.LEFT, padx=5)
+
+            for score in range(4):
+                score_button = ttk.Button(
+                    master=player_frame,
+                    text=str(score),
+                    command=lambda p=player, s=score: self._add_pass_stat(p, s)
+                )
+                score_button.pack(side=constants.LEFT, padx=2)
+
+            player_frame.grid(row=row, column=0, columnspan=2,
                               sticky=constants.W, padx=5, pady=2)
             row += 1
+
+    def _add_pass_stat(self, player, score):
+        """Add a pass statistic for a player"""
+        if self._team_service.add_pass_stat(self._game.id, player.id, score):
+            self._error_variable.set(f"Added {score} pass for {player.name}")
+        else:
+            self._error_variable.set("Failed to add statistic")
