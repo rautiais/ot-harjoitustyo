@@ -46,6 +46,7 @@ def create_tables(connection):
             id INTEGER PRIMARY KEY,
             date TEXT NOT NULL,
             team_id INTEGER NOT NULL,
+            status TEXT DEFAULT 'ongoing',
             FOREIGN KEY (team_id) REFERENCES teams (id)
         );
     ''')

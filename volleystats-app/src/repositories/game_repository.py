@@ -50,3 +50,17 @@ class GameRepository:
             Game(team_id, datetime.fromisoformat(row["date"]), row["id"])
             for row in cursor.fetchall()
         ]
+
+    def update_game_status(self, game_id: int, status: str):
+        """Update game status
+
+        Args:
+            game_id: ID of the game
+            status: New status for the game ('ongoing' or 'ended')
+        """
+        cursor = self._connection.cursor()
+        cursor.execute(
+            "UPDATE games SET status = ? WHERE id = ?",
+            (status, game_id)
+        )
+        self._connection.commit()

@@ -136,3 +136,18 @@ class TeamService:
             return True
         except sqlite3.Error:
             return False
+
+    def end_game(self, game_id: int) -> bool:
+        """End a game
+
+        Args:
+            game_id: ID of the game to end
+
+        Returns:
+            bool: True if game was ended successfully
+        """
+        try:
+            self._game_repository.update_game_status(game_id, "ended")
+            return True
+        except sqlite3.Error:
+            return False

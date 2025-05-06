@@ -70,6 +70,12 @@ class GameView:
             foreground='red'
         )
 
+        end_game_button = ttk.Button(
+            master=self._frame,
+            text="End Game",
+            command=self._end_game_handler
+        )
+
         # Layout
         heading_label.grid(row=0, column=0, columnspan=2,
                            sticky=constants.W, padx=5, pady=5)
@@ -82,6 +88,8 @@ class GameView:
 
         self._show_players_with_scoring()
 
+        end_game_button.grid(row=29, column=0, columnspan=2,
+                             sticky=(constants.E, constants.W), padx=5, pady=5)
         back_button.grid(row=30, column=0, columnspan=2,
                          sticky=(constants.E, constants.W), padx=5, pady=5)
         self._error_label.grid(row=31, column=0, columnspan=2, padx=5, pady=5)
@@ -126,3 +134,10 @@ class GameView:
             self._error_variable.set(f"Added {score} pass for {player.name}")
         else:
             self._error_variable.set("Failed to add statistic")
+
+    def _end_game_handler(self):
+        """Handle ending the game"""
+        if self._team_service.end_game(self._game.id):
+            self._handle_back()  # Return to team view
+        else:
+            self._error_variable.set("Failed to end game")
