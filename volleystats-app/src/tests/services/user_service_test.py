@@ -6,6 +6,7 @@ from config import TEST_DATABASE_FILE_PATH
 
 
 class TestUserService(unittest.TestCase):
+
     def setUp(self):
         set_database_path(TEST_DATABASE_FILE_PATH)
         initialize_database()
