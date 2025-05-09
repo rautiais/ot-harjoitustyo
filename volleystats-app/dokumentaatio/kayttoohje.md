@@ -43,4 +43,16 @@ On the team's page, you can add a new player to the team. Add the name of the pl
 You can click _Start new game_ and then you get a time stamp of when the game has been started. Then you can click the Game-button and you get the game view where you can see the players in the game.
 
 ![Players view](./images/players.png)
-![Players view](./images/roster.png)
+![Players view](./images/game_view.png)
+
+### Adding statistics
+
+You can add both passing and serving statistics to each player. You can see the passing and serving average per player but also for the whole team.
+
+![Game view with statistics](./images/game_view_with_stats.png)
+
+### Ending a game
+
+After clicking "End Game", you can't modify the scores anymore but you can still check the statistics.
+
+![End game](./images/endgame.png)
