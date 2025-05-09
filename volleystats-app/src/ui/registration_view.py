@@ -5,6 +5,7 @@ from services.user_service import UserService
 class RegistrationView:
     """Class for registration view
     """
+
     def __init__(self, root, handle_login_view):
         self._root = root
         self._handle_login_view = handle_login_view
@@ -18,12 +19,17 @@ class RegistrationView:
         self._initialize()
 
     def pack(self):
+        """Display the frame
+        """
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Destroy the frame
+        """
         self._frame.destroy()
 
     def _register_handler(self):
+        """Handle register button click"""
         username = self._username_entry.get()
         password = self._password_entry.get()
 
@@ -33,6 +39,8 @@ class RegistrationView:
             self._error_variable.set("Registration failed")
 
     def _initialize(self):
+        """"Initialize the registration view
+        """
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 

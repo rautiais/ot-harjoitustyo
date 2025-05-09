@@ -19,12 +19,18 @@ class LoginView:
         self._initialize()
 
     def pack(self):
+        """Display the frame
+        """
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Destroy the frame
+        """
         self._frame.destroy()
 
     def _login_handler(self):
+        """Handle login button click
+        """
         username = self._username_entry.get()
         password = self._password_entry.get()
 
@@ -34,6 +40,8 @@ class LoginView:
             self._error_variable.set("Invalid username or password")
 
     def _initialize(self):
+        """Initialize the login view
+        """
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 

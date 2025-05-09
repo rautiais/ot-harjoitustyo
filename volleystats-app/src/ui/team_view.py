@@ -29,12 +29,16 @@ class TeamView:
         self._initialize()
 
     def pack(self):
+        """Display the frame"""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Destroy the frame"""
         self._frame.destroy()
 
     def _initialize(self):
+        """Initialize the team view
+        """
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 
@@ -116,6 +120,8 @@ class TeamView:
         self._show_games()
 
     def _add_player_handler(self):
+        """Handle adding a new player to the team
+        """
         name = self._player_name_entry.get()
         number = self._player_number_entry.get()
 

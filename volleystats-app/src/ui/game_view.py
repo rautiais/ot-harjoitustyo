@@ -2,6 +2,9 @@ from tkinter import ttk, constants, StringVar, font
 
 
 class GameView:
+    """Class for displaying game information and statistics
+    """
+
     def __init__(self, root, game, team, team_service, handle_back):
         """Initialize GameView
 
@@ -31,6 +34,8 @@ class GameView:
         self._frame.destroy()
 
     def _initialize(self):
+        """Initialize the game view
+        """
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 

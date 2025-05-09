@@ -4,6 +4,7 @@ from tkinter import ttk, constants, StringVar, font
 class LoggedInView:
     """Class for logged in view
     """
+
     def __init__(self, root, user_service, team_service, handle_logout, handle_team_view):
         self._root = root
         self._user_service = user_service
@@ -17,16 +18,22 @@ class LoggedInView:
         self._initialize()
 
     def pack(self):
+        """Display the frame"""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Destroy the frame"""
         self._frame.destroy()
 
     def _logout_handler(self):
+        """Handle logout button click
+        """
         self._user_service.logout()
         self._handle_logout()
 
     def _create_team_handler(self):
+        """Handle create team button click
+        """
         team_name = self._team_name_entry.get()
 
         if self._team_service.create_team(team_name):
@@ -36,11 +43,17 @@ class LoggedInView:
             self._error_variable.set("Team creation failed")
 
     def _handle_team_click(self, team):
+        """Handle team button click
+
+        Args:
+            team: Team object
+        """
         self._handle_team_view(team)
         print(f"Team {team.name} clicked")
 
     def _show_teams(self):
-        # Clear existing team labels
+        """Display the teams of the user
+        """
         for widget in self._frame.grid_slaves():
             if isinstance(widget, ttk.Label) and widget.grid_info()["row"] >= 6:
                 widget.destroy()
@@ -62,6 +75,8 @@ class LoggedInView:
             row += 1
 
     def _initialize(self):
+        """Initialize the view
+        """
         self._frame = ttk.Frame(master=self._root)
         self._error_variable = StringVar(self._frame)
 
