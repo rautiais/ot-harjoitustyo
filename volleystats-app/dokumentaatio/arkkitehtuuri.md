@@ -3,6 +3,7 @@
 ## Package diagram
 
 The application's layered architecture has three main layers that are the UI layer, the Services layer and the Repositories layer. The relations between the layers are shown in the pacakge diagram. The UI components use the Services and the Services use Repositories. Each layer depends only on the layer below it.
+
 <img src="./images/achitecture_package_diagram.png" width="400" alt="Package diagram">
 
 The UI layer contains all of the user interface components. The Services layer contains the business logic and acts as a middleware between UI and data storage. The Repositories layer handles the data storage and retrieval and communicates with the database.
