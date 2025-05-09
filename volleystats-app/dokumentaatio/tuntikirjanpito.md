@@ -14,4 +14,5 @@
 | 27.4. | 5,0      | Instructions, docstring, new functionality: creating a game, tests, documentation                          |
 | 28.4. | 3,0      | New functionality: games page. Documentation                                                               |
 | 5.5.  | 3,0      | New functionalities: add pass and serve statistics, fixing bugs                                            |
-|  Sum  | 29       |                                                                                                            |
+| 9.5.  | 2,0      | Made tests for the statistics functionalities. Documentation                                               |
+|  Sum  | 31       |                                                                                                            |
