@@ -43,7 +43,7 @@ class GameView:
 
         scoring_label = ttk.Label(
             master=self._frame,
-            text="Pass Scoring:",
+            text="Scoring:",
             font=font.Font(weight="bold")
         )
 
