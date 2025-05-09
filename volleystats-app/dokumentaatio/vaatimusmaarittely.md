@@ -29,7 +29,8 @@ The application has a so-called "normal user", who can be created and deleted.
 ### Ideas for Further Development
 
 - Additionally statistics such as digs, sets, attacks, blocks can be tracked
-- User can start a new set
+- User can start and end a new set
+- User can decide the players that are on the court and their positions
 - User can change players on the court if needed
 - Statistics for both teams playing can be tracked
 - Statistics can be changed during the game if needed
