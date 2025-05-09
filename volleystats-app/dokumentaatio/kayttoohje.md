@@ -53,6 +53,7 @@ You can add both passing and serving statistics to each player. You can see the 
 
 ### Ending a game
 
-After clicking "End Game", you can't modify the scores anymore but you can still check the statistics.
+After clicking "End Game", you can't modify the scores anymore but you can still check the statistics when you click the game open again.
 
+![Games view](./images/player_view_with_games.png)
 ![End game](./images/endgame.png)
