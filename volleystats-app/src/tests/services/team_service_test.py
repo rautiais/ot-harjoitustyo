@@ -71,3 +71,90 @@ class TestTeamService(unittest.TestCase):
 
         games = self.team_service.get_team_games(1)
         self.assertEqual(len(games), 2)
+
+    def test_get_player_pass_average(self):
+        """Test that getting a player's pass average works"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_game(1)
+        self.team_service.add_pass_stat(1, 1, 3)
+        self.team_service.add_pass_stat(1, 1, 1)
+
+        average = self.team_service.get_player_pass_average(1, 1)
+        self.assertEqual(average, 2.0)
+
+    def test_get_player_serve_average(self):
+        """Test that getting a player's serve average works"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_game(1)
+        self.team_service.add_serve_stat(1, 1, 3)
+        self.team_service.add_serve_stat(1, 1, 1)
+
+        average = self.team_service.get_player_serve_average(1, 1)
+        self.assertEqual(average, 2.0)
+
+    def test_get_team_pass_average(self):
+        """Test that getting a team's pass average works"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_player(1, "Kalle", 8)
+        self.team_service.create_game(1)
+        self.team_service.add_pass_stat(1, 1, 3)
+        self.team_service.add_pass_stat(1, 2, 1)
+
+        average = self.team_service.get_pass_average(1)
+        self.assertEqual(average, 2.0)
+
+    def test_get_team_serve_average(self):
+        """Test that getting a team's serve average works"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_player(1, "Kalle", 8)
+        self.team_service.create_game(1)
+        self.team_service.add_serve_stat(1, 1, 3)
+        self.team_service.add_serve_stat(1, 2, 1)
+
+        average = self.team_service.get_team_serve_average(1)
+        self.assertEqual(average, 2.0)
+
+    def test_no_pass_stats(self):
+        """Test that average is 0.0 when no pass stats exist"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_game(1)
+        average = self.team_service.get_pass_average(1)
+        self.assertEqual(average, 0.0)
+
+    def test_no_serve_stats(self):
+        """Test that average is 0.0 when no serve stats exist"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_game(1)
+        average = self.team_service.get_team_serve_average(1)
+        self.assertEqual(average, 0.0)
+
+    def test_no_player_pass_stats(self):
+        """Test that average is 0.0 when no player pass stats exist"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_game(1)
+        average = self.team_service.get_player_pass_average(1, 1)
+        self.assertEqual(average, 0.0)
+
+    def test_no_player_serve_stats(self):
+        """Test that average is 0.0 when no player serve stats exist"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_player(1, "Salde", 13)
+        self.team_service.create_game(1)
+        average = self.team_service.get_player_serve_average(1, 1)
+        self.assertEqual(average, 0.0)
+
+    def test_end_game_succeeds(self):
+        """Test that ending a game works"""
+        self.team_service.create_team("VolleyStars")
+        self.team_service.create_game(1)
+        result = self.team_service.end_game(1)
+        self.assertTrue(result)
+
+        games = self.team_service.get_team_games(1)
+        self.assertEqual(len(games), 1)
+        self.assertFalse(games[0].is_ongoing())
