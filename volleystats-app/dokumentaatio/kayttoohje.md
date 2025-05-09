@@ -18,7 +18,7 @@ To create a new account, you need to click _Create new user_ on the logging page
 
 ![Registration](./images/register.png)
 
-## Logging in
+### Logging in
 
 To log in, you need to type the correct username and password and then click _Login_.
 
@@ -40,20 +40,20 @@ On the team's page, you can add a new player to the team. Add the name of the pl
 
 ### Starting a game
 
-You can click _Start new game_ and then you get a time stamp of when the game has been started. Then you can click the Game-button and you get the game view where you can see the players in the game.
+You can click _Start new game_ and then you get a time stamp of when the game has been started. When clicking that game's button and you get the game view where you can see the players in the game.
 
 ![Players view](./images/players.png)
 ![Players view](./images/game_view.png)
 
 ### Adding statistics
 
-You can add both passing and serving statistics to each player. You can see the passing and serving average per player but also for the whole team.
+We added another player to the roster and started a new game. Now you can add both passing and serving scores to each player. You can see the passing and serving average statistics per player and for the whole team.
 
 ![Game view with statistics](./images/game_view_with_stats.png)
 
 ### Ending a game
 
-After clicking "End Game", you can't modify the scores anymore but you can still check the statistics when you click the game open again.
+After clicking _End Game_, you can't modify the scores anymore but you can still check the statistics when you click the game open again.
 
 ![Games view](./images/player_view_with_games.png)
 ![End game](./images/endgame.png)
