@@ -32,3 +32,4 @@
 - The user can give serving score to the players in the game
 - The user can end the game
 - After the game is over, the statistics can't be changed
+- The new statistics functionalities are tested
